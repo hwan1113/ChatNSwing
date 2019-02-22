@@ -1,4 +1,4 @@
-package chatting;
+package chatting.frame;
 
 import java.awt.Color;
 import java.awt.Cursor;
