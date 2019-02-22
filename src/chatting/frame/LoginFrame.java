@@ -94,5 +94,4 @@ public class LoginFrame extends JFrame{
 	}
 
 }
-		
 	//	master branch added
