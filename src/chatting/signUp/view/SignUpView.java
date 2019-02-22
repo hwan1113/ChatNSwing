@@ -1,4 +1,4 @@
-package chatting.signUp;
+package chatting.signUp.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,15 +8,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import chatting.signUp.controller.CustomerController;
 
-public class Sign1 {
+
+public class SignUpView {
 	private CustomerController c = new CustomerController();
 	private JButton checkId,man,girl,join,cannel;
 	private JTextField inId,inPwd,inName,inPn;
 	private JLabel idd;
 	private JFrame frame;
 	private String gender ;
-	public Sign1() {
+	public SignUpView() {
 
 		frame = new JFrame("회원가입");
 
