@@ -1,4 +1,4 @@
-package chatting.signUp;
+package chatting.signUp.modelVO;
 
 import java.util.Properties;
 
