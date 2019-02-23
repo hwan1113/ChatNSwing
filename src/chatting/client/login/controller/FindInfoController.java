@@ -1,4 +1,6 @@
-package chatting.findInfo;
+package chatting.client.login.controller;
+
+import chatting.client.login.view.FindInfoView;
 
 public class FindInfoController {
 	

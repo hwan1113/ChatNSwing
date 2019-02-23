@@ -1,4 +1,4 @@
-package chatting.signUp.controller;
+package chatting.client.login.controller;
 
 import java.io.FileReader;
 import java.io.FileWriter;

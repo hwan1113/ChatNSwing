@@ -1,4 +1,4 @@
-package chatting.findInfo;
+package chatting.client.login.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import chatting.findInfo.controller.FindID;
-import chatting.findInfo.controller.FindPwd;
+import chatting.client.login.model.FindID;
+import chatting.client.login.model.FindPwd;
 
 
 public class FindInfoView implements FindID, FindPwd {

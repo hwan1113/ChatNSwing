@@ -1,4 +1,4 @@
-package chatting.signUp.view;
+package chatting.client.login.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import chatting.signUp.controller.CustomerController;
+import chatting.client.login.controller.CustomerController;
 
 
 public class SignUpView {

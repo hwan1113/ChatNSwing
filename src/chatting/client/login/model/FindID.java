@@ -1,4 +1,4 @@
-package chatting.findInfo.controller;
+package chatting.client.login.model;
 
 import java.io.FileReader;
 import java.io.IOException;
