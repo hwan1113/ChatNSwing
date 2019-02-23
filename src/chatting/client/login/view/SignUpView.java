@@ -18,6 +18,7 @@ public class SignUpView {
 	private JLabel idd;
 	private JFrame frame;
 	private String gender ;
+	
 	public SignUpView() {
 
 		frame = new JFrame("회원가입");

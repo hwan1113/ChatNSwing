@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import chatting.client.login.view.SignUpView;
+
 public class SignUpController {
 
 	private Properties pp = new  Properties();
-	
+	private SignUpView suv = new SignUpView();
 	public SignUpController() {}
 	
 	//회원 추가(파라미터)

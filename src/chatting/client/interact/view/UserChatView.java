@@ -4,20 +4,17 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-//import project.chatting.Server.MultichatServer;
 
 public class UserChatView extends JFrame{
-//	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	GridBagConstraints gbc = new GridBagConstraints();
 	private JTextArea txtArea;
 	private JButton send;
@@ -31,7 +28,6 @@ public class UserChatView extends JFrame{
 		
 		
 		setVisible(true);
-//		new MultichatServer().start();
 	}
 	
 	public void addRootPanel() {

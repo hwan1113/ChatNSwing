@@ -13,13 +13,22 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import chatting.client.interact.controller.UserChatController;
+import chatting.client.interact.view.UserChatView;
+import chatting.client.login.controller.FindInfoController;
+import chatting.client.login.controller.SignUpController;
+
 public class LoginView extends JFrame{
 
-	JLabel signUp;
-	JLabel findInfo;
-	JTextField inputId;
-	JPasswordField inputPassword;
-	JLabel outputMsg;
+	private JLabel signUp;
+	private JLabel findInfo;
+	private JTextField inputId;
+	private JPasswordField inputPassword;
+	private JLabel outputMsg;
+	
+	private FindInfoController fInfoCntrl;
+	private SignUpController signupc;
+	private UserChatController ucc;
 	
 	public LoginView(int x, int y, int w, int h) {
 			setBounds(x,y,w,h);
@@ -77,7 +86,10 @@ public class LoginView extends JFrame{
 		class MyListener extends MouseAdapter{
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				if(e.getSource()==signUp) {
+					signupc= new SignUpController();
+				}else if(e.getSource()==findInfo) {
+					fInfoCntrl= new FindInfoController();
 				}
 			}
 		}
@@ -85,17 +97,11 @@ public class LoginView extends JFrame{
 		class MyActionListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
-				
+				ucc = new UserChatController("name");
 			}
-		
+		}
 	public static void main(String[] args) {
 		new LoginView(200, 200, 500, 400);
 	}
 
 }
-	//	master branch added
-	//second master branch added
-	//third master branch added
-
-		//third change from forked
