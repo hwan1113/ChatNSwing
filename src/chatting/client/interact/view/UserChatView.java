@@ -40,9 +40,6 @@ public class UserChatView extends JFrame{
 	
 	public void showMsg() {
 		gbc.insets=new Insets(0,3,0,3);
-	//	gbc.ipadx=20;
-	//	gbc.ipady=20;
-		
 		gbc.gridx=0;
 		gbc.gridy=0;
 		gbc.weighty=0.9;
@@ -67,14 +64,14 @@ public class UserChatView extends JFrame{
 		gbc.gridheight=1;
 		gbc.gridwidth=1;
 		gbc.fill=GridBagConstraints.NONE;
-		//gbc.weightx=0.5;
+		
 		gbc.gridx=0;
 		gbc.gridy=1;
 		this.add(input,gbc);
 		
 		gbc.gridx=1;
 		gbc.gridy=1;
-		//gbc.weightx=0.1;
+
 		this.add(getSend(),gbc);
 		
 		gbc.gridx=2;
@@ -116,8 +113,4 @@ public class UserChatView extends JFrame{
 		this.input = input;
 	}
 	
-	
-	
-	
-
 }

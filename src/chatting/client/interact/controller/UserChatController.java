@@ -108,9 +108,5 @@ public class UserChatController {
 	public void setMessage(String message) {
 		chatView.getTxtArea().append(message+"\n");
 	}
-	
-	public static void main(String[] args) {
-		new UserChatController("name");
-	}
 
 }

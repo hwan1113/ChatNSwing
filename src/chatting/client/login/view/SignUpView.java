@@ -12,11 +12,18 @@ import chatting.client.login.controller.SignUpController;
 
 
 public class SignUpView {
-	private SignUpController c = new SignUpController();
 	private JButton checkId,man,girl,join,cannel;
 	private JTextField inId,inPwd,inName,inPn;
 	private JLabel idd;
 	private JFrame frame;
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
 	private String gender ;
 	
 	public SignUpView() {
@@ -49,7 +56,6 @@ public class SignUpView {
 		inPn.setBounds(130, 210, 150, 30);
 		checkId = new JButton("중복 확인");
 		checkId.setBounds(310, 47, 90, 50);
-		checkId.addActionListener(new Myaction());
 		JLabel print = new JLabel();
 		
 		man = new JButton("남");
@@ -61,10 +67,6 @@ public class SignUpView {
 		cannel= new  JButton("취소");
 		cannel.setBounds(220, 330, 70, 30);
 
-		man.addActionListener(new  Myaction());
-		girl.addActionListener(new  Myaction());
-		join.addActionListener(new Myaction());
-		cannel.addActionListener(new  Myaction());
 		
 		frame.add(id);
 		frame.add(idd);
@@ -89,45 +91,94 @@ public class SignUpView {
 
 		frame.setVisible(true);
 	}
-	
-	class Myaction implements ActionListener {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==checkId) {
-				if(c.seachCustomer(inId.getText())) {
-					//회원이 있을떄
-					idd.setText("이미 사용중인 아이디 입니다");
-				}else {
-					//회원이 없을떄
-					idd.setText("사용가능한 아이디입니다");
-				}
-			}else if(e.getSource()==man) {
-				gender ="남";
-			}else if(e.getSource()==girl) {
-				gender = "여";
-			}else if(e.getSource()==join) {
-				String id =inId.getText();
-				String pwd = inPwd.getText();
-				String name =inName.getText();
-				String pn = inPn.getText();
-				if(c.nullPoint(id, pwd, pn, name, gender).equals("")) {	  //빈값 있는지 확인하기
-					if(c.seachCustomer(id)==true) {				//아이디 중복 확인
-						idd.setText("아이디를 확인해주세요");
-						return;
-					}
-					c.InputCustomer(name, id, pwd, pn, gender);		//회원 추가
-					
-					frame.dispose();			
-				}else {
-					idd.setText(c.nullPoint(id, pwd, pn, name, pn)+"을 확인해주세요");	
-				}
-				
-			}else if(e.getSource()==cannel) {
-				frame.dispose();
-			}
-		}//end of action
-	}//end of actionClass
+	public JTextField getInId() {
+		return inId;
+	}
+
+	public void setInId(JTextField inId) {
+		this.inId = inId;
+	}
+
+	public JTextField getInPwd() {
+		return inPwd;
+	}
+
+	public void setInPwd(JTextField inPwd) {
+		this.inPwd = inPwd;
+	}
+
+	public JTextField getInName() {
+		return inName;
+	}
+
+	public void setInName(JTextField inName) {
+		this.inName = inName;
+	}
+
+	public JTextField getInPn() {
+		return inPn;
+	}
+
+	public void setInPn(JTextField inPn) {
+		this.inPn = inPn;
+	}
+
+	public JLabel getIdd() {
+		return idd;
+	}
+
+	public void setIdd(JLabel idd) {
+		this.idd = idd;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public JButton getCheckId() {
+		return checkId;
+	}
+
+	public void setCheckId(JButton checkId) {
+		this.checkId = checkId;
+	}
+
+	public JButton getMan() {
+		return man;
+	}
+
+	public void setMan(JButton man) {
+		this.man = man;
+	}
+
+	public JButton getGirl() {
+		return girl;
+	}
+
+	public void setGirl(JButton girl) {
+		this.girl = girl;
+	}
+
+	public JButton getJoin() {
+		return join;
+	}
+
+	public void setJoin(JButton join) {
+		this.join = join;
+	}
+
+	public JButton getCannel() {
+		return cannel;
+	}
+
+	public void setCannel(JButton cannel) {
+		this.cannel = cannel;
+	}
 
 }
 

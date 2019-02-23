@@ -1,21 +1,33 @@
 package chatting.client.login.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
-
 import chatting.client.login.view.SignUpView;
 
 public class SignUpController {
 
 	private Properties pp = new  Properties();
 	private SignUpView suv = new SignUpView();
-	public SignUpController() {}
+	
+	public SignUpController() {
+		suv.getCheckId().addActionListener(new  Myaction());
+		suv.getMan().addActionListener(new  Myaction());
+		suv.getGirl().addActionListener(new  Myaction());
+		suv.getJoin().addActionListener(new Myaction());
+		suv.getCannel().addActionListener(new  Myaction());
+	}
 	
 	//회원 추가(파라미터)
-		public void InputCustomer(String name,String id,String pwd,String pn,String gender) {
+		public void InputCustomer(String name,
+								String id,
+								String pwd,
+								String pn,
+								String gender) {
 			if(seachCustomer(id)==true) {
 				//중복된 아이디 있음 출력
 //				System.out.println("중복");
@@ -39,6 +51,12 @@ public class SignUpController {
 			try {
 				pp.load(new FileReader("Customer.txt"));
 			}catch(IOException e) {
+		//맨처음 할때, 파일 자체가 없음.
+//				try {
+//				pp.store(new FileWriter("Customer.txt",true),id);
+//				}catch(IOException e) {
+//					e.printStackTrace();
+//				}
 				e.printStackTrace();
 			}
 			Enumeration<?> e = pp.propertyNames();
@@ -135,4 +153,41 @@ public class SignUpController {
 			return null;
 		}
 		
+		class Myaction implements ActionListener {
+			String gender ="";
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==suv.getCheckId()) {
+					if(seachCustomer(suv.getInId().getText())) {
+						//회원이 있을떄
+						suv.getIdd().setText("이미 사용중인 아이디 입니다");
+					}else {
+						//회원이 없을떄
+						suv.getIdd().setText("사용가능한 아이디입니다");
+					}
+				}else if(e.getSource()==suv.getMan()) {
+					gender ="남";
+				}else if(e.getSource()==suv.getGirl()) {
+					gender = "여";
+				}else if(e.getSource()==suv.getJoin()) {
+					String id =suv.getInId().getText();
+					String pwd = suv.getInPwd().getText();
+					String name =suv.getInName().getText();
+					String pn = suv.getInPn().getText();
+					if(nullPoint(id, pwd, pn, name, gender).equals("")) {	  //빈값 있는지 확인하기
+						if(seachCustomer(id)==true) {				//아이디 중복 확인
+							suv.getIdd().setText("아이디를 확인해주세요");
+							return;
+						}
+					InputCustomer(name, id, pwd, pn, gender);		//회원 추가
+					suv.getFrame().dispose();
+					}else {
+						suv.getIdd().setText(nullPoint(id, pwd, pn, name, pn)+"을 확인해주세요");	
+					}
+					
+				}else if(e.getSource()==suv.getCannel()) {
+					suv.getFrame().dispose();
+				}
+			}//end of action
+		}//end of actionClass
 }
