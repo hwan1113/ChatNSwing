@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginFrame extends JFrame{
+public class LoginView extends JFrame{
 
 	JLabel signUp;
 	JLabel findInfo;
@@ -21,7 +21,7 @@ public class LoginFrame extends JFrame{
 	JPasswordField inputPassword;
 	JLabel outputMsg;
 	
-	public LoginFrame(int x, int y, int w, int h) {
+	public LoginView(int x, int y, int w, int h) {
 			setBounds(x,y,w,h);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setTitle("Login");
@@ -90,7 +90,7 @@ public class LoginFrame extends JFrame{
 			}
 		
 	public static void main(String[] args) {
-		new LoginFrame(200, 200, 500, 400);
+		new LoginView(200, 200, 500, 400);
 	}
 
 }

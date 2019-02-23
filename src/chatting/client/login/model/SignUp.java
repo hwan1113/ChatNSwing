@@ -2,7 +2,7 @@ package chatting.client.login.model;
 
 import java.util.Properties;
 
-public class Customer {
+public class SignUp {
 
 	private String name;	//이름
 	private String id;		//아이디  (key)
@@ -11,11 +11,11 @@ public class Customer {
 	private String gender;   	//성별
 	
 	
-	public Customer() {
+	public SignUp() {
 		
 	}
 	//파라미터 생성자
-	public  Customer(String name,String id,String pwd,String pn,String gender) {
+	public  SignUp(String name,String id,String pwd,String pn,String gender) {
 		this.name = name;
 		this.id=id;
 		this.pwd = pwd;

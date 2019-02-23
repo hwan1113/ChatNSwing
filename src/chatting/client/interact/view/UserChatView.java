@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 
 //import project.chatting.Server.MultichatServer;
 
-public class ChatFrame extends JFrame{
+public class UserChatView extends JFrame{
 //	private static final long serialVersionUID = 1L;
 	GridBagConstraints gbc = new GridBagConstraints();
 	private JTextArea txtArea;
@@ -24,7 +24,7 @@ public class ChatFrame extends JFrame{
 	private JButton close;
 	JTextField input;
 	
-	public ChatFrame() {
+	public UserChatView() {
 		addRootPanel();
 		showMsg();
 		addinputMsg();

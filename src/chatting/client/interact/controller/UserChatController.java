@@ -7,16 +7,16 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
-import chatting.client.interact.view.ChatFrame;
+import chatting.client.interact.view.UserChatView;
 
-public class UserChat {
-	ChatFrame chatView = new ChatFrame();
+public class UserChatController {
+	UserChatView chatView = new UserChatView();
 	String name;
 	Socket socket;
 	DataOutputStream dos;
 	DataInputStream dis;
 	
-	public UserChat(String name) {
+	public UserChatController(String name) {
 		this.name = name;
 		try {
 			// 클라이언트 쪽에서 접속할 서버의 ip입력
@@ -110,7 +110,7 @@ public class UserChat {
 	}
 	
 	public static void main(String[] args) {
-		new UserChat("name");
+		new UserChatController("name");
 	}
 
 }

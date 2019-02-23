@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
-public class CustomerController {
+public class SignUpController {
 
 	private Properties pp = new  Properties();
 	
-	public CustomerController() {}
+	public SignUpController() {}
 	
 	//회원 추가(파라미터)
 		public void InputCustomer(String name,String id,String pwd,String pn,String gender) {

@@ -8,11 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import chatting.client.login.controller.CustomerController;
+import chatting.client.login.controller.SignUpController;
 
 
 public class SignUpView {
-	private CustomerController c = new CustomerController();
+	private SignUpController c = new SignUpController();
 	private JButton checkId,man,girl,join,cannel;
 	private JTextField inId,inPwd,inName,inPn;
 	private JLabel idd;
