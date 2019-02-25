@@ -2,17 +2,25 @@ package chatting.client.login.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Properties;
+
+import chatting.client.interact.controller.UserChatController;
 import chatting.client.login.view.SignUpView;
 
 public class SignUpController {
 
-	private Properties pp = new  Properties();
 	private SignUpView suv = new SignUpView();
+	private Properties pp = new  Properties();
+	DataInputStream dis;
+	DataOutputStream dos;
+	Socket socket;
 	
 	public SignUpController() {
 		suv.getCheckId().addActionListener(new  Myaction());
@@ -22,60 +30,14 @@ public class SignUpController {
 		suv.getCannel().addActionListener(new  Myaction());
 	}
 	
-	//회원 추가(파라미터)
-		public void InputCustomer(String name,
-								String id,
-								String pwd,
-								String pn,
-								String gender) {
-			if(seachCustomer(id)==true) {
-				//중복된 아이디 있음 출력
-//				System.out.println("중복");
-				return;
-			}
-			pp.setProperty(id, name+","+id+","+pwd+","+pn+","+gender);
-			try {
-				pp.store(new FileWriter("Customer.txt",true),id);
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			//회원생성완료 메시지 띄우기
+	public void sender(String msg) {
+		try {
+			dos = new DataOutputStream(socket.getOutputStream());
+			dos.writeUTF(msg);
+		}catch(IOException e) {
 		}
-		
-		
-		//회원 찾기(아이디 중복확인)
-		public boolean seachCustomer(String id) {
-			if(id.equals("")) {
-				return true;
-			}
-			try {
-				pp.load(new FileReader("Customer.txt"));
-			}catch(IOException e) {
-		//맨처음 할때, 파일 자체가 없음.
-//				try {
-//				pp.store(new FileWriter("Customer.txt",true),id);
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-				e.printStackTrace();
-			}
-			Enumeration<?> e = pp.propertyNames();
-			while(e.hasMoreElements()) {
-				String temp=(String)e.nextElement();
-				//값을 배열에 넣어주기
-				String[] userInfo = pp.getProperty(temp).split(",");
-				
-				//반복문을 통한 유저아이디 검색5
-				for(int i=0;i<userInfo.length;i++) {
-					if(userInfo[1].equals(id)) {
-						return true;  //있으면true리턴
-					}
-				}
-			}
-			return false;  //유저가 없으면 false 리턴
-		}
-		
-		
+	}
+	
 		//회원정보  null값 걸러내기
 		public  String nullPoint(String id,String pwd,String pn,String name,String gender) {
 			String sel ="";
@@ -90,101 +52,61 @@ public class SignUpController {
 			}else if(gender.equals("")) {
 				sel += "성별";
 			}
-			
 			return sel;
 		}
-		
-		//로그인
-		public boolean login(String id,String pwd) {
-			try {
-				pp.load(new FileReader("Customer.txt"));
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			Enumeration<?> e = pp.propertyNames();
-			while(e.hasMoreElements()) {
-				String search =(String)e.nextElement();
-				String[] userInfo = pp.getProperty(search).split(",");
-				
-				if(userInfo[1].equals(id) &&userInfo[2].equals(pwd)) {
-					return true;
-				}
-			}
-			return false;
-		}
-		
-		//회원찾기 (비밀번호찾기)
-		public String findpwd(String id,String name) {
-			try {
-				pp.load(new FileReader("Customer.txt")); //불러오기
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			Enumeration<?> e = pp.propertyNames();
-			while(e.hasMoreElements()) {
-				String temp = (String) e.nextElement();
-				String[] userInfo = pp.getProperty(temp).split(",");
-				
-				for(int i=0;i<userInfo.length;i++) {
-					if(id.equals(userInfo[1])&&name.equals(userInfo[0])) {
-						return userInfo[2]; //비밀번호 리턴
-					}
-				}
-			}
-			return null;  //회원 정보없으면 null리턴
-			//아이디 또는 비밀번호 재입력 메시지띄우기
-		}
-		
-		//아이디 찾기
-		public String findId(String name,String pn) {
-			try {
-				pp.load(new FileReader("Customer.txt"));
-			}catch(IOException e ) {
-				e.printStackTrace();
-			}
-			Enumeration<?> ee = pp.propertyNames();
-			while(ee.hasMoreElements()) {
-				String search = (String)ee.nextElement();
-				String[] userInfo = pp.getProperty(search).split(",");
-				if(userInfo[0].equals(name)&&userInfo[3].equals(pn)) {
-					return userInfo[1].toString();
-				}
-			}
-			return null;
-		}
-		
 		class Myaction implements ActionListener {
 			String gender ="";
+			DataInputStream in;
+			DataOutputStream out;
+			Socket socket;
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					in = new DataInputStream(socket.getInputStream());
+					out = new  DataOutputStream(socket.getOutputStream());
+				}catch(IOException m) {
+				}
+				String valid= "";
 				if(e.getSource()==suv.getCheckId()) {
-					if(seachCustomer(suv.getInId().getText())) {
-						//회원이 있을떄
-						suv.getIdd().setText("이미 사용중인 아이디 입니다");
-					}else {
-						//회원이 없을떄
-						suv.getIdd().setText("사용가능한 아이디입니다");
+					sender(suv.getInId().toString());
+					while(in != null) {
+						try {
+							valid = in.readUTF();
+						}catch(IOException q) {
+						}
+						if(valid=="true") {
+							suv.getIdd().setText("이미 사용중인 아이디 입니다");
+						}else {
+							suv.getIdd().setText("사용가능한 아이디입니다");
+						}
 					}
-				}else if(e.getSource()==suv.getMan()) {
+				}
+				else if(e.getSource()==suv.getMan()) {
 					gender ="남";
 				}else if(e.getSource()==suv.getGirl()) {
 					gender = "여";
+					
 				}else if(e.getSource()==suv.getJoin()) {
 					String id =suv.getInId().getText();
 					String pwd = suv.getInPwd().getText();
 					String name =suv.getInName().getText();
 					String pn = suv.getInPn().getText();
 					if(nullPoint(id, pwd, pn, name, gender).equals("")) {	  //빈값 있는지 확인하기
-						if(seachCustomer(id)==true) {				//아이디 중복 확인
-							suv.getIdd().setText("아이디를 확인해주세요");
+						sender(name+","+id+","+pwd+","+pn+","+gender.toString());
+						while(in != null) {
+							try {
+								valid = in.readUTF();
+							}catch(IOException q) {
+							}
+						}
+						if(valid.equals("succes")==false) {
+							suv.getIdd().setText(nullPoint(id, pwd, pn, name, pn)+"을 확인해주세요");
 							return;
 						}
-					InputCustomer(name, id, pwd, pn, gender);		//회원 추가
-					suv.getFrame().dispose();
+						suv.getFrame().dispose();
 					}else {
 						suv.getIdd().setText(nullPoint(id, pwd, pn, name, pn)+"을 확인해주세요");	
 					}
-					
 				}else if(e.getSource()==suv.getCannel()) {
 					suv.getFrame().dispose();
 				}

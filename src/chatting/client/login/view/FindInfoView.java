@@ -22,7 +22,7 @@ import chatting.client.login.model.FindID;
 import chatting.client.login.model.FindPwd;
 
 
-public class FindInfoView implements FindID, FindPwd {
+public class FindInfoView  {
 	JTextField id, name, pn;
 	JButton serchId, serchPwd;
 	public static String idStr;

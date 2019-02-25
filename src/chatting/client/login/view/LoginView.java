@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,11 +27,9 @@ public class LoginView extends JFrame{
 	private JTextField inputId;
 	private JPasswordField inputPassword;
 	private JLabel outputMsg;
+	private JButton btn;
 	
-	private FindInfoController fInfoCntrl;
-	private SignUpController signupc;
-	private UserChatController ucc;
-	
+	public LoginView() {}
 	public LoginView(int x, int y, int w, int h) {
 			setBounds(x,y,w,h);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,21 +49,18 @@ public class LoginView extends JFrame{
 			inputPassword = new JPasswordField(20);
 			inputPassword.setBounds(110, 160, 200, 50);
 			
-			JButton btn = new JButton("로그인");
+			btn = new JButton("로그인");
 			btn.setBounds(330,100,110,110);
-			btn.addActionListener(new MyActionListener());
 			
 			signUp = new JLabel("계정이 없으신가요?");
 			signUp.setForeground(Color.BLUE);
 			signUp.setBounds(140, 270, 200, 20);
 			signUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			signUp.addMouseListener(new MyListener());
 			
 			findInfo = new JLabel("아이디/비밀번호 찾기");
 			findInfo.setForeground(Color.BLUE);
 			findInfo.setBounds(140, 300, 200, 20);
 			findInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			findInfo.addMouseListener(new MyListener());
 			
 			outputMsg = new JLabel();
 			outputMsg.setBounds(140, 230, 200, 20);
@@ -82,26 +79,46 @@ public class LoginView extends JFrame{
 			setVisible(true);
 		}
 		
-		
-		class MyListener extends MouseAdapter{
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getSource()==signUp) {
-					signupc= new SignUpController();
-				}else if(e.getSource()==findInfo) {
-					fInfoCntrl= new FindInfoController();
-				}
-			}
-		}
-		
-		class MyActionListener implements ActionListener{
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ucc = new UserChatController("name");
-			}
-		}
-	public static void main(String[] args) {
-		new LoginView(200, 200, 500, 400);
+	
+	
+	
+	public JLabel getSignUp() {
+		return signUp;
+	}
+	public void setSignUp(JLabel signUp) {
+		this.signUp = signUp;
+	}
+	public JLabel getFindInfo() {
+		return findInfo;
+	}
+	public void setFindInfo(JLabel findInfo) {
+		this.findInfo = findInfo;
+	}
+	public JButton getBtn() {
+		return btn;
+	}
+	public void setBtn(JButton btn) {
+		this.btn = btn;
+	}
+	
+	public JTextField getInputId() {
+		return inputId;
+	}
+	public void setInputId(JTextField inputId) {
+		this.inputId = inputId;
+	}
+	public JPasswordField getInputPassword() {
+		return inputPassword;
+	}
+	public void setInputPassword(JPasswordField inputPassword) {
+		this.inputPassword = inputPassword;
 	}
 
+	
+	public JLabel getOutputMsg() {
+		return outputMsg;
+	}
+	public void setOutputMsg(JLabel outputMsg) {
+		this.outputMsg = outputMsg;
+	}
 }
