@@ -114,3 +114,11 @@ public class UserChatView extends JFrame{
 	}
 	
 }
+
+
+
+
+
+
+
+
