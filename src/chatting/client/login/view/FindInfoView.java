@@ -23,11 +23,11 @@ import chatting.client.login.model.FindPwd;
 
 
 public class FindInfoView  {
-	JTextField id, name, pn;
-	JButton serchId, serchPwd;
-	public static String idStr;
-	public static String nameStr;
-	public static String pnStr;
+	private JTextField id, name, pn;
+	private JButton serchId, serchPwd;
+	private String idStr;
+	private String nameStr;
+	private String pnStr;
 
 	JFrame frame = new JFrame("비밀번호 찾기");
 
@@ -83,9 +83,9 @@ public class FindInfoView  {
 		serchPwd = new JButton("비밀번호 찾기");
 
 		serchId.setBounds(20, 5, 150, 40);
-		serchId.addActionListener(listener);
+//		serchId.addActionListener(listener);
 		serchPwd.setBounds(200, 5, 150, 40);
-		serchPwd.addActionListener(listener);
+//		serchPwd.addActionListener(listener);
 
 		p2.setBounds(0, 250, 400, 100);
 		p2.setLayout(null);
@@ -95,33 +95,75 @@ public class FindInfoView  {
 		frame.add(p2);
 	}
 
-	ActionListener listener = new ActionListener() {
-		String str;
+	public JTextField getId() {
+		return id;
+	}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			UIManager.put("OptionPane.messageFont", new Font("맑은고딕", Font.PLAIN, 20));
-			if (e.getSource() == serchPwd) {
-				idStr = id.getText();
-				nameStr = name.getText();
-				str = FindPwd.findpwd(idStr, nameStr);
-				if (str == null) {
-					JOptionPane.showMessageDialog(null, "정보가 검색되지 않습니다.");
-					return;
-				} else {
-					JOptionPane.showMessageDialog(null, "비밀번호: " + str);
-				}
-			} else if (e.getSource() == serchId) {
-				nameStr = name.getText();
-				pnStr = pn.getText();
-				str = FindID.findId(nameStr, pnStr);
-				if (str == null) {
-					JOptionPane.showMessageDialog(null, "정보가 검색되지 않습니다.");
-					return;
-				} else {
-					JOptionPane.showMessageDialog(null, "아이디: " + str);
-				}
-			}
-		}
-	};
+	public void setId(JTextField id) {
+		this.id = id;
+	}
+
+	public JTextField getName() {
+		return name;
+	}
+
+	public void setName(JTextField name) {
+		this.name = name;
+	}
+
+	public JTextField getPn() {
+		return pn;
+	}
+
+	public void setPn(JTextField pn) {
+		this.pn = pn;
+	}
+
+	public JButton getSerchId() {
+		return serchId;
+	}
+
+	public void setSerchId(JButton serchId) {
+		this.serchId = serchId;
+	}
+
+	public JButton getSerchPwd() {
+		return serchPwd;
+	}
+
+	public void setSerchPwd(JButton serchPwd) {
+		this.serchPwd = serchPwd;
+	}
+
+	public String getIdStr() {
+		return idStr;
+	}
+
+	public void setIdStr(String idStr) {
+		this.idStr = idStr;
+	}
+
+	public String getNameStr() {
+		return nameStr;
+	}
+
+	public void setNameStr(String nameStr) {
+		this.nameStr = nameStr;
+	}
+
+	public String getPnStr() {
+		return pnStr;
+	}
+
+	public void setPnStr(String pnStr) {
+		this.pnStr = pnStr;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
 }

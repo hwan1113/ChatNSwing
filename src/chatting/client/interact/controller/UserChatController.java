@@ -16,29 +16,28 @@ public class UserChatController {
 	DataOutputStream dos;
 	DataInputStream dis;
 	
-	public UserChatController(String name) {
+	public UserChatController(String name, Socket socket) {
 		this.name = name;
-		try {
-			// 클라이언트 쪽에서 접속할 서버의 ip입력
-			String serverIp = "192.168.25.32";
-			// 서버의 ip,port번호 입력-연결
-			socket = new Socket(serverIp, 5000);
-			System.out.println("서버에 연결되었습니다. 채팅 시작합니다.");
-
+		this.socket = socket;
+//		try {
+			//String serverIp = "192.168.25.32";
+			//socket = new Socket(serverIp, 5000);
+			//System.out.println("서버에 연결되었습니다. 채팅 시작합니다.");
 			// 메시지 전송용 Thread
 			MessageSender(socket);
 			
-			// 수신용 Thread
-			Thread thread = new Thread(new ClientJoin(socket));
+			// 수신용 Thread 꼭필요?
+			Thread thread = new ClientJoin(socket);
 			thread.start();
 
-		} catch (ConnectException e) {
-			e.printStackTrace();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+		} 
+//		catch (ConnectException e) {
+//			e.printStackTrace();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	
 	public void MessageSender(Socket socket) {
@@ -61,7 +60,7 @@ public class UserChatController {
 	}
 		
 	
-	public class ClientJoin implements Runnable {
+	public class ClientJoin extends Thread {
 		Socket socket;
 		DataInputStream dis;
 

@@ -18,16 +18,16 @@ public class LoginController {
 	private SignUpController signupc;
 	private UserChatController ucc;
 	private FindInfoController finc;
-	String name;
-	Socket socket;
-	DataOutputStream dos;
+	private String name;
+	private Socket socket;
+	private DataOutputStream dos;
 	
 	LoginController(){
 		lv.getBtn().addActionListener(new MyActionListener());
 		lv.getSignUp().addMouseListener(new MyListener());
 		lv.getFindInfo().addMouseListener(new MyListener());
-		String ip = "200.200.200.214";
-		try {socket = new Socket(ip,4000);
+		String ip = "200.200.200.219";
+		try {socket = new Socket(ip,9000);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -49,7 +49,7 @@ public class LoginController {
 			String pwd = String.valueOf(lv.getInputPassword().getPassword());
 			String str = lv.getInputId().getText()+","+pwd+",0,0";
 			sender(str);
-			Thread thread = new Recieve(socket);
+			Thread thread = new Receive(socket);
 			thread.start();
 		}
 	}
@@ -62,12 +62,12 @@ public class LoginController {
 		}
 	}
 
-	class Recieve extends Thread{
+	class Receive extends Thread{
 		DataInputStream in;
 		DataOutputStream out;
 		Socket socket;
-		public Recieve() {}
-		public Recieve(Socket socket) {
+		public Receive() {}
+		public Receive(Socket socket) {
 			this.socket=socket;
 			try {
 				in = new DataInputStream(socket.getInputStream());
@@ -79,13 +79,11 @@ public class LoginController {
 			String valid = "";
 			while(in != null) {
 				try {
-					// 메시지 수신용
 					valid = in.readUTF();
-					//CliteCopy 클래스에 메세지 전송 메소드 호출
 				}catch(IOException e) {
 				}
 				if(valid=="true") {
-					new UserChatController(lv.getName());
+					new UserChatController(lv.getName(), socket);
 				}else {
 					lv.getOutputMsg().setText("잘못된 입력입니다.");
 			}

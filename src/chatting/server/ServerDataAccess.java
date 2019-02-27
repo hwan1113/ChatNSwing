@@ -3,6 +3,7 @@ package chatting.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Collections;
@@ -67,27 +68,45 @@ public class ServerDataAccess extends Thread{
 	} // run 
 	
 	public void info(String info) {
+		Enumeration<?> it = userinfo();
 		String[] infoo = info.split(",");
-//		if(infoo.length==1) {			//아이디 중복 체크
-//			System.out.println("infoooooo");
-//			if(search(userinfo(),infoo[0])== false) send("false",info);
-//			else send("true",info);
-//			
-//		}else if(infoo.length==2) {	//아이디 찾기
-//			String id = findid(userinfo(),infoo);
-//			if(id != null) send(id,info);
-//			else send("null",info);
-//			
-//		}else if(infoo.length==3) {	//비밀번호 찾기
-//			String pwd = findpwd(userinfo(),infoo);
-//			if(pwd != null) send(pwd,info);
-//			send("null",info);
+		if(infoo.length==1) {			//아이디 중복 체크
+			while(it.hasMoreElements()) {
+				String user = (String)it.nextElement();
+				String[] userinfo = pp.getProperty(user).split(",");
+				if(userinfo[1].equals(infoo[0])) send("false",info);
+			else {
+				send("true",info);
+			}
+		}
+		}else if(infoo.length==2) {	//아이디 찾기
+			while(it.hasMoreElements()) {
+				String user = (String)it.nextElement();
+				String[] userin = pp.getProperty(user).split(",");
+				//이름 		   이름 		번호			번호
+				if(userin[0].equals(infoo[0])&&userin[3].equals(infoo[1])) {
+					send (userin[1],info);
+				}else {
+					send("null",info);
+				}
+			}
+			
+		}else if(infoo.length==3) {	//비밀번호 찾기
+			while(it.hasMoreElements()) {
+				String user = (String)it.nextElement();
+				String[] userin = pp.getProperty(user).split(",");
+				//이름 		   이름 		번호			번호
+				if(userin[1].equals(infoo[1])&&userin[0].equals(infoo[0])) {
+					send (userin[2],info);
+				}else {
+					send("null",info);
+				}
+			}
 			
 		if(infoo.length==4) {	//로그인 
-			Enumeration<?> it = userinfo();
 			 while(it.hasMoreElements()) {
 	                String user = (String)it.nextElement();
-	                String[] userr = pp.getProperty(user).split(","); 
+	                String[] userr = pp.getProperty(user).split(",");
 	                if(userr[1].equals(infoo[0])&&userr[2].equals(infoo[1])) {
 	                	send("true",info);
 	                }else 
@@ -96,13 +115,19 @@ public class ServerDataAccess extends Thread{
 	                }
 			 }
 			 
-		} 
-//		else if(infoo.length==5) {	//회원 가입
-//			signUp(userinfo(),infoo);
-//			send("succes",info);
-//		}
-		
+		}
+		else if(infoo.length==5) {	//회원 가입
+			pp.setProperty(infoo[1], infoo[0]+","+infoo[1]+","+infoo[2]+","+infoo[3]+","+infoo[4]);
+			try {
+				System.out.println("check2");
+				pp.store(new FileWriter("Customer.txt"), infoo[1]);
+			}catch(IOException e) {
+			}
+			send("succes",info);
+		}
+		}
 	}
+	
 	public Enumeration<?> userinfo(){
 		try {
 			pp.load(new  FileReader("Customer.txt"));
